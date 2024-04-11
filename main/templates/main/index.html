@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+    integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew=="
+    crossorigin="anonymous" />
+  <title>Weather App</title>
+  <style>
+    /* Adjustments for responsiveness */
+    body {
+      overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+    .jumbotron {
+      margin-top: -60px;
+    }
+    .navbar {
+      margin-bottom: 20px;
+    }
+    .card {
+      max-width: 18rem;
+      margin-bottom: 20px;
+      background-color:white;
+    }
+  </style>
+</head>
+
+<body style="background-image: url('{% static 'images/Weatherj.png' %}')">
+  <div id="jumbotron" class="jumbotron text-center">
+    <h1 class="display-5">Weather App</h1>
+    <h5>---with Django framework---</h5>
+    <img src="{% static 'images/weather1.png' %}" class="image" style="width:100px;">
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
+    <form method="post" class="col-6">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="text" class="form-control" name="city" placeholder="Enter Your City ...">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </form>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      {% if country and temp and pressure and humidity %}
+        <div class="col d-flex justify-content-center flex-column">
+          <div class="card text-dark bg-light">
+            <div class="card-body">
+              <h4 class="card-title"><span class="badge badge-primary">Country Code:</span> {{country}}</h4>
+              <p class="card-text"><span class="badge badge-primary">Temperature in Celsius:</span> {{temp}}</p>
+              <p class="card-text"><span class="badge badge-primary">Pressure:</span> {{pressure}}</p>
+              <p class="card-text"><span class="badge badge-primary">Humidity:</span> {{humidity}}</p>
+              <p class="card-text"><span class="badge badge-primary">Forecast:</span> {{main}} <img
+                  src="http://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width:70px;"></p>
+              <p class="card-text"><span class="badge badge-primary">Description:</span> {{description}}</p>
+            </div>
+          </div>
+           <div class="card-body bg-light">
+              <ul>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        
+      {% else %}
+        <div class="justify-content-center">Not found</div>
+        
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>
