@@ -1,0 +1,50 @@
+{% extends "main/index.html" %}
+{% block search %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
+  <form method="post" class="col-6">
+    {% csrf_token %}
+    <div class="input-group">
+      <input type="text" class="form-control" name="city" placeholder="Enter Your City ...">
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
+</nav>
+{% endblock %}
+{% block content %}
+<button type="button" class="btn btn-outline-success btn-hist"><a href="/history">Weather history</a></button>
+<div class="">  
+        {% if data.country and data.temp and data.pressure and data.humidity %}
+              <div class="col d-flex justify-content-center flex-column">
+                <div class="card text-dark bg-light">
+                  <div class="card-body">
+                    <h4 class="card-title"><span class="badge badge-primary">Country Code:</span> {{ data.country }}</h4>
+                    <p class="card-text"><span class="badge badge-primary">Temperature in Celsius:</span> {{ data.temp }}</p>
+                    <p class="card-text"><span class="badge badge-primary">Pressure:</span> {{ data.pressure }}</p>
+                    <p class="card-text"><span class="badge badge-primary">Humidity:</span> {{ data.humidity }}</p>
+                    <p class="card-text"><span class="badge badge-primary">Forecast:</span> {{ data.main }} <img
+                        src="http://openweathermap.org/img/w/{{ data.icon }}.png" alt="Image" style="width:70px;"></p>
+                    <p class="card-text"><span class="badge badge-primary">Description:</span> {{ data.description }}</p>
+                  </div>
+                </div>
+        {% else %}
+          <div class="justify-content-center">{{ data.error }}</div>
+        {% endif %}
+</div>
+<h1>3-hour forecast</h1>
+<div class="row hourly-container">
+  {% for card in data_forecast %}
+  <div class="hourly">
+      <h5 class="title">{{ card.date }}</h5>
+      <img src="http://openweathermap.org/img/w/{{ card.icon }}.png" class="img" alt="Weather Icon">
+      <h5 class="title">{{ card.temp }}</h5>
+      <p class="text">Pressure: {{ card.pressure }}</p>
+      <p class="text">Humidity: {{ card.humidity }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+{% endblock %}

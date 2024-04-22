@@ -25,6 +25,29 @@
       margin-bottom: 20px;
       background-color:white;
     }
+    .btn-hist{
+      margin: 10px;
+    }
+    .hourly-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      padding: 20px 0;  /* Optional: Add some padding for better spacing */
+  }
+  
+  .hourly {
+      display: inline-block;
+      margin-right: 10px;  /* Optional: Add some margin between cards */
+      vertical-align: top; /* Align cards at the top */
+      width: 200px;        /* Set a fixed width for each card */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a better look */
+      border-radius: 8px;  /* Optional: Add rounded corners */
+      background-color: white;
+      margin-bottom: 5px; /* Optional: Add some padding for better
+  }  
+  .img{
+    width:40%;
+  }
   </style>
 </head>
 
@@ -34,47 +57,12 @@
     <h5>---with Django framework---</h5>
     <img src="{% static 'images/weather1.png' %}" class="image" style="width:100px;">
   </div>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
-    <form method="post" class="col-6">
-      {% csrf_token %}
-      <div class="input-group">
-        <input type="text" class="form-control" name="city" placeholder="Enter Your City ...">
-        <div class="input-group-btn">
-          <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-      </div>
-    </form>
-  </nav>
-
+  {% block search %}
+  {%endblock%}
   <div class="container">
-    <div class="row">
-      {% if country and temp and pressure and humidity %}
-        <div class="col d-flex justify-content-center flex-column">
-          <div class="card text-dark bg-light">
-            <div class="card-body">
-              <h4 class="card-title"><span class="badge badge-primary">Country Code:</span> {{country}}</h4>
-              <p class="card-text"><span class="badge badge-primary">Temperature in Celsius:</span> {{temp}}</p>
-              <p class="card-text"><span class="badge badge-primary">Pressure:</span> {{pressure}}</p>
-              <p class="card-text"><span class="badge badge-primary">Humidity:</span> {{humidity}}</p>
-              <p class="card-text"><span class="badge badge-primary">Forecast:</span> {{main}} <img
-                  src="http://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width:70px;"></p>
-              <p class="card-text"><span class="badge badge-primary">Description:</span> {{description}}</p>
-            </div>
-          </div>
-           <div class="card-body bg-light">
-              <ul>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-        
-      {% else %}
-        <div class="justify-content-center">Not found</div>
-        
-      {% endif %}
-    </div>
+    {%block content%}{%endblock%}
   </div>
+
 </body>
 
 </html>

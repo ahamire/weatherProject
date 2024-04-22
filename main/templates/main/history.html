@@ -1,0 +1,18 @@
+{% extends "main/index.html" %}
+{% block content %}
+<h1>Weather Search History</h1>
+<div class="container">
+    <h2>Recent Cities Searched</h2>
+    <ul class="list-group">
+        {% for city in cities %}
+        <li class="list-group-item">{{ city.city }} - {{ city.timestamp }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Recent Temperature Records</h2>
+    <ul class="list-group">
+        {% for temp in temps %}
+        <li class="list-group-item">{{ temp.city }} - Temp: {{ temp.temp }}, Pressure: {{ temp.pressure }}, Humidity: {{ temp.humidity }} - {{ temp.timestamp }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
