@@ -84,6 +84,12 @@ WSGI_APPLICATION = 'weatherProject.wsgi.application'
 #     }
 # }
 # 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'railway',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
