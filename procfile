@@ -1,0 +1,2 @@
+web gunicorn weatherProject.wsgi:application --log-file -
+worker: celery -weatherProject worker --loglevel=info
